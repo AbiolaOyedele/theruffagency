@@ -8,28 +8,49 @@ import StatCounter from '@/components/ui/StatCounter'
 import { EASE_OUT_EXPO } from '@/lib/utils'
 import type { SiteSettings } from '@/lib/content'
 
-interface HeroProps {
-  settings: SiteSettings
-}
-
-export default function Hero({ settings }: HeroProps) {
+export default function Hero({ settings }: { settings: SiteSettings }) {
+  const containerRef = useRef<HTMLDivElement>(null)
   const wordRef = useRef<HTMLHeadingElement>(null)
+  const lineRefs = useRef<(HTMLDivElement | null)[]>([])
   const reduced = useReducedMotion()
   const { isVisible: preloaderVisible } = usePreloader()
 
+  const lines = settings.heroWord.split('\n').filter(Boolean)
+
+  // Fit each line to fill the full container width
+  useEffect(() => {
+    const fitLines = () => {
+      const container = containerRef.current
+      if (!container) return
+      const containerWidth = container.offsetWidth
+
+      lineRefs.current.forEach((lineEl) => {
+        if (!lineEl) return
+        // Reset to reference size, measure, then scale to fill container
+        lineEl.style.fontSize = '100px'
+        const naturalWidth = lineEl.scrollWidth
+        if (!naturalWidth) return
+        lineEl.style.fontSize = `${(containerWidth / naturalWidth) * 100}px`
+      })
+    }
+
+    fitLines()
+    const ro = new ResizeObserver(fitLines)
+    if (containerRef.current) ro.observe(containerRef.current)
+    return () => ro.disconnect()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings.heroWord])
+
+  // GSAP letter animation
   useEffect(() => {
     if (preloaderVisible) return
-
     const el = wordRef.current
     if (!el) return
-
     const letters = el.querySelectorAll<HTMLSpanElement>('.letter')
-
     if (reduced) {
       gsap.set(letters, { yPercent: 0, opacity: 1 })
       return
     }
-
     gsap.fromTo(
       letters,
       { yPercent: 100, opacity: 0 },
@@ -44,22 +65,21 @@ export default function Hero({ settings }: HeroProps) {
     )
   }, [preloaderVisible, reduced])
 
-  const lines = settings.heroWord.split('\n').filter(Boolean)
-
-  // heroFontSize can be a CSS clamp() string or a plain px/vw value stored in settings
-  const fontSize = settings.heroFontSize ?? 'clamp(96px, 18vw, 280px)'
-
   return (
     <section className="min-h-screen flex flex-col justify-end pb-20 pt-32 px-6 md:px-10">
-      <div className="max-w-container mx-auto w-full">
-        {/* Hero word */}
+      <div ref={containerRef} className="max-w-container mx-auto w-full">
+        {/* Hero word — each line auto-fits to fill container width */}
         <h1
           ref={wordRef}
           className="font-semibold tracking-[-0.04em] leading-[0.9] text-ink mb-12"
-          style={{ fontSize }}
         >
           {lines.map((line, li) => (
-            <div key={li} className="overflow-hidden">
+            <div
+              key={li}
+              ref={(el) => { lineRefs.current[li] = el }}
+              className="overflow-hidden whitespace-nowrap"
+              style={{ fontSize: '10vw' }}
+            >
               {line.split('').map((letter, i) => (
                 <span
                   key={i}
@@ -70,7 +90,7 @@ export default function Hero({ settings }: HeroProps) {
                   }
                   style={{ opacity: reduced ? 1 : 0 }}
                 >
-                  {letter === ' ' ? ' ' : letter}
+                  {letter === ' ' ? ' ' : letter}
                 </span>
               ))}
             </div>
@@ -87,8 +107,6 @@ export default function Hero({ settings }: HeroProps) {
               label={stat.label}
             />
           ))}
-
-          {/* Description */}
           <div className="md:col-span-1">
             <p
               className="text-base leading-relaxed text-muted"

@@ -40,7 +40,7 @@ export default function Navbar() {
           borderRadius: scrolled ? '999px' : '0px',
         }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="max-w-container mx-auto flex items-center justify-between px-6 border border-transparent"
+        className="max-w-container mx-auto flex items-center justify-center md:justify-between px-6 border border-transparent"
         style={{ borderColor: scrolled ? 'rgba(14,14,14,0.08)' : 'transparent' }}
       >
         {/* Logo */}
