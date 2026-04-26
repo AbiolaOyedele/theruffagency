@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "why-brand-consistency-drives-revenue",
+    "title": "Why Brand Consistency Drives Revenue More Than Any Ad Campaign",
+    "category": "Branding",
+    "date": "March 12, 2025",
+    "image": "/images/blog-1.jpg",
+    "excerpt": "Most brands focus on acquisition. The ones that win focus on recognition. Here's why consistency compounds."
+  },
+  {
+    "slug": "website-performance-conversion",
+    "title": "The 200ms Rule: How Site Speed Silently Kills Your Conversion Rate",
+    "category": "Development",
+    "date": "February 28, 2025",
+    "image": "/images/blog-2.jpg",
+    "excerpt": "Every 100ms of load time costs you 1% in conversions. We broke down 50 client sites to find the real culprits."
+  },
+  {
+    "slug": "seo-strategy-2025",
+    "title": "SEO in 2025: The Strategies That Actually Move Rankings",
+    "category": "Marketing",
+    "date": "February 14, 2025",
+    "image": "/images/blog-3.jpg",
+    "excerpt": "Google's algorithm has changed. Your SEO strategy should too. Here's what's working right now."
+  }
+]

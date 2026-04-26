@@ -1,0 +1,22 @@
+[
+  {
+    "number": "01",
+    "title": "Discovery",
+    "description": "We start by deeply understanding your business, goals, and target audience. Through workshops, research, and competitor analysis, we uncover the insights that drive everything forward."
+  },
+  {
+    "number": "02",
+    "title": "Design",
+    "description": "With strategy in hand, our designers craft visuals that are both beautiful and purposeful. Every element is considered — from typography to colour, motion to layout."
+  },
+  {
+    "number": "03",
+    "title": "Development",
+    "description": "Our engineers bring designs to life with clean, scalable code. We build fast, accessible, and responsive digital products that perform as well as they look."
+  },
+  {
+    "number": "04",
+    "title": "Launch",
+    "description": "We handle the full launch process — QA, deployment, and post-launch monitoring. You go live with confidence, and we stay close to ensure everything runs perfectly."
+  }
+]

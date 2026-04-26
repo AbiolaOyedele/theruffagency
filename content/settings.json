@@ -1,0 +1,27 @@
+{
+  "studioName": "The Ruff Agency",
+  "tagline": "Not just services — we deliver growth, clarity, and real impact.",
+  "heroWord": "Creative \nRebellion",
+  "heroDescription": "We partner with ambitious brands to build exceptional websites, drive results with SEO, and grow through smart digital marketing.",
+  "email": "hello@ruff.studio",
+  "phone": "+1 (202) 555-0190",
+  "twitter": "https://twitter.com",
+  "instagram": "https://instagram.com",
+  "stats": [
+    {
+      "value": 25,
+      "suffix": "+",
+      "label": "Completed Projects"
+    },
+    {
+      "value": 5,
+      "suffix": "+",
+      "label": "Years of Experience"
+    },
+    {
+      "value": 100,
+      "suffix": "%",
+      "label": "Happy Clients"
+    }
+  ]
+}

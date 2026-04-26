@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "x-asvii",
+    "title": "X-ASVII",
+    "description": "A bold 3D identity and motion system for an emerging streetwear label — built to dominate digital and physical spaces.",
+    "liveUrl": "https://example.com",
+    "serviceSlug": "brand-strategy",
+    "categories": ["3D", "Motion"],
+    "cover": "/images/project-x-asvii.jpg",
+    "gallery": [
+      { "src": "/images/project-x-asvii.jpg", "alt": "X-ASVII hero", "aspect": "16/9" },
+      { "src": "/images/project-x-asvii-2.jpg", "alt": "X-ASVII detail", "aspect": "4/3" },
+      { "src": "/images/project-x-asvii-3.jpg", "alt": "X-ASVII mobile", "aspect": "3/4" }
+    ]
+  },
+  {
+    "slug": "viuso-lui",
+    "title": "Viuso Lui",
+    "description": "A refined brand identity for a luxury Italian eyewear brand — minimal, editorial, and unmistakably European.",
+    "liveUrl": "https://example.com",
+    "serviceSlug": "brand-strategy",
+    "categories": ["Branding"],
+    "cover": "/images/project-viuso.jpg",
+    "gallery": [
+      { "src": "/images/project-viuso.jpg", "alt": "Viuso Lui brand", "aspect": "16/9" },
+      { "src": "/images/project-viuso-2.jpg", "alt": "Viuso Lui packaging", "aspect": "4/3" }
+    ]
+  },
+  {
+    "slug": "glasso",
+    "title": "Glasso",
+    "description": "Motion-first digital experience for a premium glassware company — fluid, tactile, and conversion-optimised.",
+    "liveUrl": "https://example.com",
+    "serviceSlug": "website-development",
+    "categories": ["Motion", "3D"],
+    "cover": "/images/project-glasso.jpg",
+    "gallery": [
+      { "src": "/images/project-glasso.jpg", "alt": "Glasso hero", "aspect": "16/9" },
+      { "src": "/images/project-glasso-2.jpg", "alt": "Glasso detail", "aspect": "3/4" }
+    ]
+  },
+  {
+    "slug": "caligraphyst",
+    "title": "Caligraphyst",
+    "description": "A type-driven brand identity for a bespoke calligraphy studio — balancing heritage craft with modern digital presence.",
+    "liveUrl": "https://example.com",
+    "serviceSlug": "brand-strategy",
+    "categories": ["Type", "Branding"],
+    "cover": "/images/project-cali.jpg",
+    "gallery": [
+      { "src": "/images/project-cali.jpg", "alt": "Caligraphyst brand", "aspect": "16/9" },
+      { "src": "/images/project-cali-2.jpg", "alt": "Caligraphyst stationery", "aspect": "4/3" }
+    ]
+  },
+  {
+    "slug": "int-rio",
+    "title": "Int Rio",
+    "description": "Interior architecture branding and digital platform for a high-end residential design firm based in Rio de Janeiro.",
+    "liveUrl": "https://example.com",
+    "serviceSlug": "packaging-design",
+    "categories": ["Interior"],
+    "cover": "/images/project-intrio.jpg",
+    "gallery": [
+      { "src": "/images/project-intrio.jpg", "alt": "Int Rio hero", "aspect": "16/9" },
+      { "src": "/images/project-intrio-2.jpg", "alt": "Int Rio detail", "aspect": "4/3" }
+    ]
+  },
+  {
+    "slug": "ilustro",
+    "title": "Ilustro",
+    "description": "A vibrant illustration-led brand system for a creative agency — bold, characterful, and built to stand out.",
+    "liveUrl": "https://example.com",
+    "serviceSlug": "brand-strategy",
+    "categories": ["Illustration", "Type"],
+    "cover": "/images/project-ilustro.jpg",
+    "gallery": [
+      { "src": "/images/project-ilustro.jpg", "alt": "Ilustro brand", "aspect": "16/9" },
+      { "src": "/images/project-ilustro-2.jpg", "alt": "Ilustro detail", "aspect": "4/3" }
+    ]
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "01",
+    "slug": "brand-strategy",
+    "name": "Brand Strategy & Identity",
+    "description": "We craft cohesive brand identities that resonate with your audience — from logo and color systems to tone of voice and brand guidelines that scale across every touchpoint.",
+    "tagline": "Your brand, built to last.",
+    "fullDescription": "From discovery workshops to final brand guidelines, we go deep on who you are, who you serve, and how to position you for growth. The result is a complete identity system — logo, colour, type, tone — that works everywhere."
+  },
+  {
+    "id": "02",
+    "slug": "website-development",
+    "name": "Website Development",
+    "description": "High-performance websites built for conversion. We design and develop with precision — combining cutting-edge tech with pixel-perfect execution to create digital experiences that captivate.",
+    "tagline": "Fast, beautiful, built to convert.",
+    "fullDescription": "We build with Next.js, Framer, and modern web standards so every site we ship is fast, accessible, and future-proof. From landing pages to full product sites — designed in-house and engineered to perform."
+  },
+  {
+    "id": "03",
+    "slug": "seo-marketing",
+    "name": "SEO Marketing",
+    "description": "Data-driven SEO strategies that move the needle. We optimize your digital presence to rank higher, drive qualified traffic, and turn visitors into loyal customers.",
+    "tagline": "Rank higher. Grow faster.",
+    "fullDescription": "We don't chase algorithms — we build sustainable organic growth through technical SEO, content strategy, and link authority. Every campaign is tied directly to business outcomes, not just rankings."
+  },
+  {
+    "id": "04",
+    "slug": "packaging-design",
+    "name": "Packaging Design",
+    "description": "Packaging that sells before the customer even opens the box. We create tactile, shelf-stopping designs that communicate quality and reinforce your brand story.",
+    "tagline": "Packaging that does the selling.",
+    "fullDescription": "Great packaging is a silent salesperson. We handle everything from structural concepts and dieline design to print-ready files and supplier briefs — so your product stands out wherever it's sold."
+  }
+]

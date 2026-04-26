@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Steve R.",
+    "role": "CEO, Bloom",
+    "avatar": "/images/avatar-1.jpg",
+    "rating": 5,
+    "body": "Working with Ruff was a game-changer for Bloom. They rebuilt our entire brand identity and website in under six weeks, and the results were immediate — we saw a 40% increase in demo requests within the first month. The team's attention to detail and strategic thinking set them apart from any agency we've worked with before."
+  },
+  {
+    "id": 2,
+    "name": "Sarah M.",
+    "role": "Founder, NovaSkin",
+    "avatar": "/images/avatar-2.jpg",
+    "rating": 5,
+    "body": "I came to Ruff with a rough concept and left with a fully realised brand that feels premium, approachable, and uniquely ours. They didn't just execute — they challenged our thinking and pushed us toward something far better than we'd imagined. Our packaging alone has become a talking point."
+  },
+  {
+    "id": 3,
+    "name": "Max T.",
+    "role": "Director, Craft & Code",
+    "avatar": "/images/avatar-3.jpg",
+    "rating": 5,
+    "body": "Ruff delivered our new site on time, on budget, and beyond expectation. The performance scores are exceptional — 98 on Lighthouse — and the design is the best we've ever had. Our clients regularly comment on it. I can't recommend them highly enough."
+  },
+  {
+    "id": 4,
+    "name": "Elena V.",
+    "role": "CMO, Streamly",
+    "avatar": "/images/avatar-4.jpg",
+    "rating": 5,
+    "body": "From the first call to the final handoff, Ruff made the whole process feel effortless. They understood our SaaS product deeply, translated it into clear and compelling messaging, and designed an onboarding flow that reduced our churn by 18%. Truly a partner, not just a vendor."
+  },
+  {
+    "id": 5,
+    "name": "James K.",
+    "role": "Head of Marketing, Axiom",
+    "avatar": "/images/avatar-5.jpg",
+    "rating": 5,
+    "body": "We've worked with several agencies over the years, but Ruff stands out for one reason: they actually care about results. Not vanity metrics — real business outcomes. Our conversion rate is up 32% since the rebrand, and our sales team finally has materials they're proud to share."
+  },
+  {
+    "id": 6,
+    "name": "Priya N.",
+    "role": "Product Lead, Loopline",
+    "avatar": "/images/avatar-6.jpg",
+    "rating": 5,
+    "body": "The Ruff team brought a level of craft and intention to our project that I rarely see. They asked hard questions, pushed back when needed, and delivered something genuinely extraordinary. The site has become our best sales tool."
+  }
+]

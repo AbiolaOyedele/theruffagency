@@ -1,0 +1,39 @@
+{
+  "subscription": {
+    "name": "Subscription",
+    "price": "$3,999",
+    "period": "/month",
+    "features": [
+      "Unlimited design requests",
+      "Two active tasks at a time",
+      "Dedicated design & dev team",
+      "Weekly strategy calls",
+      "Brand + web + SEO included",
+      "Pause or cancel anytime",
+      "Priority turnaround",
+      "30-day satisfaction guarantee"
+    ]
+  },
+  "project": {
+    "name": "Per Project",
+    "price": "From $1,299",
+    "period": "",
+    "popular": true,
+    "features": [
+      "Fixed scope, fixed price",
+      "Dedicated project manager",
+      "Brand identity or website",
+      "Revisions included",
+      "Full ownership of all assets",
+      "Delivery in 3–8 weeks",
+      "30-day post-launch support",
+      "Transparent milestone billing"
+    ],
+    "popularServices": [
+      { "name": "Brand Identity", "price": "$1,999" },
+      { "name": "Website Design & Dev", "price": "$4,999" },
+      { "name": "SEO Campaign", "price": "$2,999" },
+      { "name": "Packaging Design", "price": "$1,499" }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "question": "What types of businesses do you work with?",
+    "answer": "We work with startups, scale-ups, and established brands across industries — from SaaS and e-commerce to hospitality, fashion, and professional services. If you're serious about growth and care about quality, we're the right fit."
+  },
+  {
+    "id": 2,
+    "question": "How long does a typical project take?",
+    "answer": "A full brand identity project typically takes 3–5 weeks. Website builds range from 4–8 weeks depending on scope and complexity. We also offer accelerated timelines for time-sensitive projects — just ask."
+  },
+  {
+    "id": 3,
+    "question": "Do you offer ongoing support after launch?",
+    "answer": "Yes. All projects include a 30-day post-launch support window. Beyond that, we offer monthly retainer packages for clients who want continuous design, development, and strategy support."
+  },
+  {
+    "id": 4,
+    "question": "What does the subscription plan include?",
+    "answer": "The subscription plan gives you a dedicated design and development team on a monthly basis. This includes unlimited design requests, two active tasks at a time, weekly strategy calls, and full access to our suite of services — from brand to code."
+  },
+  {
+    "id": 5,
+    "question": "How do I get started?",
+    "answer": "Hit the 'Get in Touch' button, tell us a bit about your project, and we'll set up a free 30-minute discovery call. From there, we'll scope the work, send you a proposal, and — if it's a fit — kick things off within the week."
+  }
+]
