@@ -1,8 +1,56 @@
 'use client'
 
-import { useState, useCallback } from 'react'
-import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp, Save, Check } from 'lucide-react'
+import { useState, useCallback, useRef } from 'react'
+import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp, Save, Check, Upload, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+
+/* ─── Upload helper ──────────────────────────────────────────── */
+
+const IMAGE_KEYS = ['cover', 'image', 'avatar', 'photo', 'src', 'thumbnail', 'banner', 'poster']
+const MEDIA_KEYS = [...IMAGE_KEYS, 'video', 'media', 'file']
+
+function isMediaKey(key: string) {
+  return MEDIA_KEYS.some((k) => key.toLowerCase().includes(k))
+}
+
+function UploadButton({ onUploaded }: { onUploaded: (url: string) => void }) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [uploading, setUploading] = useState(false)
+
+  const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (data.url) onUploaded(data.url)
+    } catch {
+      alert('Upload failed')
+    } finally {
+      setUploading(false)
+      if (inputRef.current) inputRef.current.value = ''
+    }
+  }
+
+  return (
+    <>
+      <input ref={inputRef} type="file" accept="image/*,video/*" className="hidden" onChange={handleFile} />
+      <button
+        type="button"
+        onClick={() => inputRef.current?.click()}
+        disabled={uploading}
+        className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/8 border border-white/10 text-white/60 hover:text-white hover:bg-white/12 text-xs font-medium transition-all disabled:opacity-50 flex-shrink-0"
+        title="Upload file"
+      >
+        {uploading ? <Loader2 size={13} className="animate-spin" /> : <Upload size={13} />}
+        {uploading ? 'Uploading…' : 'Upload'}
+      </button>
+    </>
+  )
+}
 
 /* ─── Field descriptors ─────────────────────────────────────── */
 
@@ -189,17 +237,36 @@ function Field({
               </button>
             </div>
             <div>
-              <label className="block text-white/40 text-xs mb-1">Image URL</label>
-              <input
-                className={cn(inputCls, 'w-full')}
-                value={item.src}
-                placeholder="/images/my-image.jpg"
-                onChange={(e) => {
-                  const next = [...arr]
-                  next[i] = { ...item, src: e.target.value }
-                  onChange(next)
-                }}
-              />
+              <label className="block text-white/40 text-xs mb-1">Image / Video</label>
+              {item.src && (
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-white/5 border border-white/8 mb-2">
+                  {/\.(mp4|webm|mov)$/i.test(item.src) ? (
+                    <video src={item.src} className="w-full h-full object-cover" muted playsInline />
+                  ) : (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={item.src} alt={item.alt || 'preview'} className="w-full h-full object-cover" />
+                  )}
+                </div>
+              )}
+              <div className="flex gap-2">
+                <input
+                  className={cn(inputCls, 'flex-1')}
+                  value={item.src}
+                  placeholder="Upload or paste URL…"
+                  onChange={(e) => {
+                    const next = [...arr]
+                    next[i] = { ...item, src: e.target.value }
+                    onChange(next)
+                  }}
+                />
+                <UploadButton
+                  onUploaded={(url) => {
+                    const next = [...arr]
+                    next[i] = { ...item, src: url }
+                    onChange(next)
+                  }}
+                />
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>
@@ -245,9 +312,38 @@ function Field({
     )
   }
 
+  // URL field — show upload button for image/video keys
+  if (def.type === 'url') {
+    const showUpload = isMediaKey(def.key)
+    return (
+      <div className="space-y-2">
+        {showUpload && String(value ?? '') && (
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-white/5 border border-white/8">
+            {/\.(mp4|webm|mov)$/i.test(String(value)) ? (
+              <video src={String(value)} className="w-full h-full object-cover" muted playsInline />
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={String(value)} alt="preview" className="w-full h-full object-cover" />
+            )}
+          </div>
+        )}
+        <div className="flex gap-2">
+          <input
+            type="url"
+            className={cn(base, 'flex-1')}
+            value={String(value ?? '')}
+            placeholder={showUpload ? 'Upload or paste URL…' : 'https://…'}
+            onChange={(e) => onChange(e.target.value)}
+          />
+          {showUpload && <UploadButton onUploaded={(url) => onChange(url)} />}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <input
-      type={def.type === 'url' ? 'url' : 'text'}
+      type="text"
       className={base}
       value={String(value ?? '')}
       onChange={(e) => onChange(e.target.value)}
