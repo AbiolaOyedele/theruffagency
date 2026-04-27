@@ -72,7 +72,8 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
       <div ref={viewportRef} className="w-full overflow-hidden mb-12">
         <h1
           ref={wordRef}
-          className="font-semibold tracking-[-0.04em] leading-[0.9] text-ink"
+          className="tracking-[-0.04em] leading-[0.9] text-ink"
+          style={{ fontFamily: "'Valizas', sans-serif", fontWeight: 700 }}
         >
           {lines.map((line, li) => (
             <div
