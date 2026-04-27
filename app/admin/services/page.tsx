@@ -11,7 +11,7 @@ const schema: SchemaDef = [
   { type: 'textarea', key: 'fullDescription',  label: 'Full Description (service page body)', rows: 5 },
 ]
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
   return (
     <AdminEditor
       section="services"
@@ -19,7 +19,7 @@ export default function ServicesPage() {
       description="Edit the service cards on the homepage and their individual service pages."
       listSchema={schema}
       newItemTemplate={{ id: '05', slug: '', name: '', description: '', tagline: '', fullDescription: '' }}
-      initialData={getServices()}
+      initialData={await getServices()}
     />
   )
 }

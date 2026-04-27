@@ -8,9 +8,8 @@ export const metadata: Metadata = {
   description: 'Our favourite collaborations — branding, websites, and digital experiences.',
 }
 
-export default function ProjectsPage() {
-  const projects = getProjects()
-  const services = getServices()
+export default async function ProjectsPage() {
+  const [projects, services] = await Promise.all([getProjects(), getServices()])
 
   return (
     <main className="pt-32 pb-0">

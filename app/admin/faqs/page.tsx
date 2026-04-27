@@ -7,7 +7,7 @@ const schema: SchemaDef = [
   { type: 'textarea', key: 'answer',   label: 'Answer', rows: 4 },
 ]
 
-export default function FaqsPage() {
+export default async function FaqsPage() {
   return (
     <AdminEditor
       section="faqs"
@@ -15,7 +15,7 @@ export default function FaqsPage() {
       description="Edit the accordion items in the [07 FAQ] section."
       listSchema={schema}
       newItemTemplate={{ question: '', answer: '' }}
-      initialData={getFAQs()}
+      initialData={await getFAQs()}
     />
   )
 }

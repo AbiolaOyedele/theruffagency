@@ -11,7 +11,7 @@ const schema: SchemaDef = [
   { type: 'textarea', key: 'excerpt',  label: 'Excerpt', rows: 3 },
 ]
 
-export default function BlogPage() {
+export default async function BlogPage() {
   return (
     <AdminEditor
       section="blog"
@@ -19,7 +19,7 @@ export default function BlogPage() {
       description="Manage posts shown in the [08 Blog] section."
       listSchema={schema}
       newItemTemplate={{ slug: '', title: '', category: '', date: '', image: '', excerpt: '' }}
-      initialData={getBlogPosts()}
+      initialData={await getBlogPosts()}
     />
   )
 }

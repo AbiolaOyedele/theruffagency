@@ -15,8 +15,8 @@ const schema: SchemaDef = [
   { type: 'stats',    key: 'stats',             label: 'Hero Stats' },
 ]
 
-export default function SettingsPage() {
-  const data = getSettings()
+export default async function SettingsPage() {
+  const data = await getSettings()
   return (
     <AdminEditor
       section="settings"

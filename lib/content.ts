@@ -1,7 +1,9 @@
 import fs from 'fs'
 import path from 'path'
+import { readBlobContent } from './blob-content'
 
 const CONTENT_DIR = path.join(process.cwd(), 'content')
+const IS_BLOB = !!process.env.BLOB_READ_WRITE_TOKEN
 
 function readJSON<T>(file: string, fallback: T): T {
   try {
@@ -11,6 +13,13 @@ function readJSON<T>(file: string, fallback: T): T {
     return fallback
   }
 }
+
+async function read<T>(section: string, fallback: T): Promise<T> {
+  if (IS_BLOB) return readBlobContent(section, fallback)
+  return readJSON(`${section}.json`, fallback)
+}
+
+// ─── Types ───────────────────────────────────────────────────────────────────
 
 export type SiteStat = { value: number; suffix: string; label: string }
 export type SiteSettings = {
@@ -56,6 +65,8 @@ export type Project = {
   gallery: GalleryItem[]
 }
 
+// ─── Defaults ────────────────────────────────────────────────────────────────
+
 const DEFAULT_SETTINGS: SiteSettings = {
   studioName: 'Ruff',
   tagline: 'Not just services — we deliver growth, clarity, and real impact.',
@@ -72,14 +83,26 @@ const DEFAULT_SETTINGS: SiteSettings = {
   ],
 }
 
-export function getSettings(): SiteSettings { return readJSON('settings.json', DEFAULT_SETTINGS) }
-export function getServices(): Service[] { return readJSON('services.json', []) }
-export function getServiceBySlug(slug: string): Service | undefined { return getServices().find((s) => s.slug === slug) }
-export function getWorkflow(): WorkflowStep[] { return readJSON('workflow.json', []) }
-export function getTestimonials(): Testimonial[] { return readJSON('testimonials.json', []) }
-export function getFAQs(): FAQ[] { return readJSON('faqs.json', []) }
-export function getPricing(): Pricing { return readJSON('pricing.json', {} as Pricing) }
-export function getBlogPosts(): BlogPost[] { return readJSON('blog.json', []) }
-export function getProjects(): Project[] { return readJSON('projects.json', []) }
-export function getProjectBySlug(slug: string): Project | undefined { return getProjects().find((p) => p.slug === slug) }
-export function getProjectsByService(serviceSlug: string): Project[] { return getProjects().filter((p) => p.serviceSlug === serviceSlug) }
+// ─── Getters (all async) ──────────────────────────────────────────────────────
+
+export async function getSettings(): Promise<SiteSettings> { return read('settings', DEFAULT_SETTINGS) }
+export async function getServices(): Promise<Service[]> { return read('services', []) }
+export async function getWorkflow(): Promise<WorkflowStep[]> { return read('workflow', []) }
+export async function getTestimonials(): Promise<Testimonial[]> { return read('testimonials', []) }
+export async function getFAQs(): Promise<FAQ[]> { return read('faqs', []) }
+export async function getPricing(): Promise<Pricing> { return read('pricing', {} as Pricing) }
+export async function getBlogPosts(): Promise<BlogPost[]> { return read('blog', []) }
+export async function getProjects(): Promise<Project[]> { return read('projects', []) }
+
+export async function getServiceBySlug(slug: string): Promise<Service | undefined> {
+  const services = await getServices()
+  return services.find((s) => s.slug === slug)
+}
+export async function getProjectBySlug(slug: string): Promise<Project | undefined> {
+  const projects = await getProjects()
+  return projects.find((p) => p.slug === slug)
+}
+export async function getProjectsByService(serviceSlug: string): Promise<Project[]> {
+  const projects = await getProjects()
+  return projects.filter((p) => p.serviceSlug === serviceSlug)
+}

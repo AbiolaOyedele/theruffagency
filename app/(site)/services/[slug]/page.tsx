@@ -11,12 +11,12 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const services = getServices()
+  const services = await getServices()
   return services.map((s) => ({ slug: s.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const service = getServiceBySlug(params.slug)
+  const service = await getServiceBySlug(params.slug)
   if (!service) return { title: 'Service — Ruff Agency' }
   return {
     title: `${service.name} — Ruff Agency`,
@@ -24,11 +24,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function ServicePage({ params }: Props) {
-  const service = getServiceBySlug(params.slug)
+export default async function ServicePage({ params }: Props) {
+  const [service, projects] = await Promise.all([
+    getServiceBySlug(params.slug),
+    getProjectsByService(params.slug),
+  ])
   if (!service) notFound()
-
-  const projects = getProjectsByService(params.slug)
 
   return (
     <main className="pt-32 pb-0">

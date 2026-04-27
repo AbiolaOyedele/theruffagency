@@ -8,7 +8,7 @@ const schema: SchemaDef = [
   { type: 'textarea', key: 'description', label: 'Description', rows: 4 },
 ]
 
-export default function WorkflowPage() {
+export default async function WorkflowPage() {
   return (
     <AdminEditor
       section="workflow"
@@ -16,7 +16,7 @@ export default function WorkflowPage() {
       description="Edit the [03 Workflow] discovery-to-launch steps."
       listSchema={schema}
       newItemTemplate={{ number: '05', title: '', description: '' }}
-      initialData={getWorkflow()}
+      initialData={await getWorkflow()}
     />
   )
 }

@@ -10,7 +10,7 @@ const schema: SchemaDef = [
   { type: 'textarea', key: 'body',   label: 'Testimonial Text', rows: 5 },
 ]
 
-export default function TestimonialsPage() {
+export default async function TestimonialsPage() {
   return (
     <AdminEditor
       section="testimonials"
@@ -18,7 +18,7 @@ export default function TestimonialsPage() {
       description="Manage client reviews shown in the scrolling marquee."
       listSchema={schema}
       newItemTemplate={{ name: '', role: '', avatar: '', rating: 5, body: '' }}
-      initialData={getTestimonials()}
+      initialData={await getTestimonials()}
     />
   )
 }

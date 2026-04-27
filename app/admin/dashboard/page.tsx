@@ -16,8 +16,8 @@ const sections = [
   { label: 'Projects',     href: '/admin/projects',     icon: FolderOpen,    desc: 'Portfolio case studies' },
 ]
 
-export default function Dashboard() {
-  const settings = getSettings()
+export default async function Dashboard() {
+  const settings = await getSettings()
 
   return (
     <div className="px-8 py-10 max-w-4xl mx-auto">

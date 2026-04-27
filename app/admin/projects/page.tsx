@@ -2,8 +2,8 @@ import AdminEditor from '@/components/admin/AdminEditor'
 import { getProjects, getServices } from '@/lib/content'
 import type { SchemaDef } from '@/components/admin/AdminEditor'
 
-export default function ProjectsAdminPage() {
-  const services = getServices()
+export default async function ProjectsAdminPage() {
+  const [services, projects] = await Promise.all([getServices(), getProjects()])
   const serviceOptions = ['', ...services.map((s) => s.slug)]
 
   const schema: SchemaDef = [
@@ -24,7 +24,7 @@ export default function ProjectsAdminPage() {
       description="Manage the portfolio projects grid and detail pages. Assign a Service Category to show the project on that service's page."
       listSchema={schema}
       newItemTemplate={{ slug: '', title: '', description: '', liveUrl: '', serviceSlug: '', categories: [], cover: '', gallery: [] }}
-      initialData={getProjects()}
+      initialData={projects}
     />
   )
 }

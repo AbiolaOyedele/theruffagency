@@ -7,18 +7,19 @@ import FooterCta from '@/components/sections/FooterCta'
 
 interface Props { params: { slug: string } }
 
-export function generateStaticParams() {
-  return getProjects().map((p) => ({ slug: p.slug }))
+export async function generateStaticParams() {
+  const projects = await getProjects()
+  return projects.map((p) => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = getProjectBySlug(params.slug)
+  const project = await getProjectBySlug(params.slug)
   if (!project) return {}
   return { title: `${project.title} — Ruff`, description: project.description }
 }
 
-export default function ProjectDetailPage({ params }: Props) {
-  const project = getProjectBySlug(params.slug)
+export default async function ProjectDetailPage({ params }: Props) {
+  const project = await getProjectBySlug(params.slug)
   if (!project) notFound()
   return (
     <main>

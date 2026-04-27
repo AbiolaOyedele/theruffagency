@@ -11,7 +11,7 @@ const inter = Inter({
 })
 
 export async function generateMetadata(): Promise<Metadata> {
-  const s = getSettings()
+  const s = await getSettings()
   return {
     title: `${s.studioName} — Brand & Digital Agency`,
     description: s.tagline,

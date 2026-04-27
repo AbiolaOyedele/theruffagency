@@ -14,15 +14,18 @@ import {
   getTestimonials, getFAQs, getPricing, getBlogPosts, getProjects,
 } from '@/lib/content'
 
-export default function HomePage() {
-  const settings     = getSettings()
-  const services     = getServices()
-  const workflow     = getWorkflow()
-  const testimonials = getTestimonials()
-  const faqs         = getFAQs()
-  const pricing      = getPricing()
-  const posts        = getBlogPosts()
-  const projects     = getProjects()
+export default async function HomePage() {
+  const [settings, services, workflow, testimonials, faqs, pricing, posts, projects] =
+    await Promise.all([
+      getSettings(),
+      getServices(),
+      getWorkflow(),
+      getTestimonials(),
+      getFAQs(),
+      getPricing(),
+      getBlogPosts(),
+      getProjects(),
+    ])
 
   return (
     <main>
