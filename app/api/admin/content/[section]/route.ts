@@ -20,9 +20,9 @@ export async function GET(_req: Request, { params }: { params: { section: string
   if (!ALLOWED.includes(section)) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
   if (IS_BLOB) {
-    const data = await readBlobContent(section, null)
-    if (data === null) return NextResponse.json({ error: 'Not found' }, { status: 404 })
-    return NextResponse.json(data)
+    // Try Blob first; fall back to bundled read-only JSON if not yet seeded
+    const fromBlob = await readBlobContent(section, null)
+    if (fromBlob !== null) return NextResponse.json(fromBlob)
   }
 
   try {

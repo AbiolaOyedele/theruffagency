@@ -15,7 +15,13 @@ function readJSON<T>(file: string, fallback: T): T {
 }
 
 async function read<T>(section: string, fallback: T): Promise<T> {
-  if (IS_BLOB) return readBlobContent(section, fallback)
+  if (IS_BLOB) {
+    // Try Blob first; if not seeded yet, fall back to the bundled read-only JSON
+    const fromBlob = await readBlobContent<T | null>(section, null)
+    if (fromBlob !== null) return fromBlob
+    // Blob empty — read from the deployment bundle (read-only filesystem fallback)
+    return readJSON(`${section}.json`, fallback)
+  }
   return readJSON(`${section}.json`, fallback)
 }
 
