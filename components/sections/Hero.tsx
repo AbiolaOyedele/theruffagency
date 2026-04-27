@@ -32,7 +32,7 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
         const naturalWidth = lineEl.offsetWidth
         lineEl.style.width = ''
         if (!naturalWidth) return
-        lineEl.style.fontSize = `${(containerWidth / naturalWidth) * 100}px`
+        lineEl.style.fontSize = `${((containerWidth - 2) / naturalWidth) * 100}px`
       })
     }
 
