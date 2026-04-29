@@ -1,4 +1,4 @@
-import { list, put, del } from '@vercel/blob'
+import { list, put } from '@vercel/blob'
 
 /**
  * Read a content JSON from Vercel Blob.
@@ -8,7 +8,11 @@ export async function readBlobContent<T>(section: string, fallback: T): Promise<
   try {
     const { blobs } = await list({ prefix: `content/${section}.json` })
     if (!blobs.length) return fallback
-    const res = await fetch(blobs[0].url, { cache: 'no-store' })
+    // Sort descending by uploadedAt so we always get the latest
+    const latest = blobs.sort((a, b) =>
+      new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()
+    )[0]
+    const res = await fetch(latest.url, { cache: 'no-store' })
     if (!res.ok) return fallback
     return (await res.json()) as T
   } catch {
@@ -17,16 +21,14 @@ export async function readBlobContent<T>(section: string, fallback: T): Promise<
 }
 
 /**
- * Write (overwrite) a content JSON in Vercel Blob.
- * Deletes any existing blob with the same prefix first to avoid accumulation.
+ * Write a content JSON to Vercel Blob.
+ * Uses a timestamp suffix so each save is a new blob (avoids delete permission issues).
+ * Reads always pick the latest by uploadedAt.
  */
 export async function writeBlobContent(section: string, data: unknown): Promise<void> {
-  const { blobs } = await list({ prefix: `content/${section}.json` })
-  if (blobs.length) {
-    await Promise.all(blobs.map((b) => del(b.url)))
-  }
-  await put(`content/${section}.json`, JSON.stringify(data, null, 2), {
-    access: 'public',
-    contentType: 'application/json',
-  })
+  await put(
+    `content/${section}.json`,
+    JSON.stringify(data, null, 2),
+    { access: 'public', contentType: 'application/json', addRandomSuffix: false }
+  )
 }
