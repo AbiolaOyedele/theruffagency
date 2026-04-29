@@ -13,6 +13,7 @@ const schema: SchemaDef = [
   { type: 'url',      key: 'twitter',           label: 'Twitter URL' },
   { type: 'url',      key: 'instagram',         label: 'Instagram URL' },
   { type: 'stats',    key: 'stats',             label: 'Hero Stats' },
+  { type: 'toggle',  key: 'maintenanceMode',   label: '🚧 Maintenance Mode — show Under Construction page to all visitors' },
 ]
 
 export default async function SettingsPage() {

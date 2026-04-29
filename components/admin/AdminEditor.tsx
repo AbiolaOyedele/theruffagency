@@ -56,6 +56,7 @@ function UploadButton({ onUploaded }: { onUploaded: (url: string) => void }) {
 
 export type FieldDef =
   | { type: 'text' | 'textarea' | 'url' | 'number'; key: string; label: string; rows?: number }
+  | { type: 'toggle'; key: string; label: string; description?: string }
   | { type: 'array-of-strings'; key: string; label: string }
   | { type: 'stats'; key: string; label: string }
   | { type: 'gallery'; key: string; label: string }
@@ -309,6 +310,29 @@ function Field({
           <Plus size={12} /> Add image
         </button>
       </div>
+    )
+  }
+
+  if (def.type === 'toggle') {
+    const checked = Boolean(value)
+    return (
+      <button
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        onClick={() => onChange(!checked)}
+        className={cn(
+          'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
+          checked ? 'bg-white' : 'bg-white/20'
+        )}
+      >
+        <span
+          className={cn(
+            'pointer-events-none inline-block h-5 w-5 rounded-full bg-[#0E0E0E] shadow transform transition-transform duration-200 ease-in-out',
+            checked ? 'translate-x-5' : 'translate-x-0'
+          )}
+        />
+      </button>
     )
   }
 

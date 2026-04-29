@@ -39,6 +39,7 @@ export type SiteSettings = {
   twitter: string
   instagram: string
   stats: SiteStat[]
+  maintenanceMode?: boolean
 }
 
 export type Service = {
