@@ -25,7 +25,7 @@ export default function UnderConstruction() {
 
         {/* Right — illustration */}
         <div className="flex-1 flex items-center justify-center md:justify-end">
-          <div className="w-full max-w-[480px] md:max-w-none md:w-[55%]">
+          <div className="w-full max-w-[840px] md:max-w-none md:w-[96%]">
             <Image
               src="/reading.svg"
               alt="Person reading"
