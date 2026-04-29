@@ -2,11 +2,11 @@ import Image from 'next/image'
 
 export default function UnderConstruction() {
   return (
-    <main className="min-h-screen bg-bg flex items-center px-6 md:px-16 lg:px-24">
+    <main className="min-h-screen bg-bg flex items-center md:px-16 lg:px-24">
       <div className="w-full max-w-[1400px] mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-0 py-24 md:py-0">
 
         {/* Left — copy */}
-        <div className="flex-1 flex flex-col justify-center">
+        <div className="flex-1 flex flex-col justify-center px-6 md:px-0">
           <span className="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-muted mb-8">
             — Under Construction
           </span>
@@ -25,7 +25,7 @@ export default function UnderConstruction() {
 
         {/* Right — illustration */}
         <div className="flex-1 flex items-center justify-center md:justify-end">
-          <div className="w-full max-w-[840px] md:max-w-none md:w-[120%]">
+          <div className="w-full md:max-w-none md:w-[120%]">
             <Image
               src="/reading.svg"
               alt="Person reading"
