@@ -49,7 +49,8 @@ export async function PUT(req: Request, { params }: { params: { section: string 
     fs.writeFileSync(path.join(CONTENT_DIR, `${section}.json`), JSON.stringify(body, null, 2), 'utf-8')
     return NextResponse.json({ ok: true })
   } catch (err) {
-    console.error('Content write error:', err)
-    return NextResponse.json({ error: 'Write failed' }, { status: 500 })
+    const msg = err instanceof Error ? err.message : String(err)
+    console.error('Content write error:', msg)
+    return NextResponse.json({ error: msg }, { status: 500 })
   }
 }
