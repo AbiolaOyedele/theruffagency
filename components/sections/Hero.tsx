@@ -9,40 +9,10 @@ import { EASE_OUT_EXPO } from '@/lib/utils'
 import type { SiteSettings } from '@/lib/content'
 
 export default function Hero({ settings }: { settings: SiteSettings }) {
-  const viewportRef = useRef<HTMLDivElement>(null)
   const wordRef = useRef<HTMLHeadingElement>(null)
-  const lineRefs = useRef<(HTMLDivElement | null)[]>([])
   const reduced = useReducedMotion()
   const { isVisible: preloaderVisible } = usePreloader()
 
-  const lines = settings.heroWord.split('\n').filter(Boolean)
-
-  // Fit each line to fill the full viewport width
-  useEffect(() => {
-    const fitLines = () => {
-      const viewport = viewportRef.current
-      if (!viewport) return
-      const containerWidth = viewport.offsetWidth
-
-      lineRefs.current.forEach((lineEl) => {
-        if (!lineEl) return
-        // Set reference size, shrink to text content, measure, scale to fill
-        lineEl.style.fontSize = '100px'
-        lineEl.style.width = 'max-content'
-        const naturalWidth = lineEl.offsetWidth
-        lineEl.style.width = ''
-        if (!naturalWidth) return
-        lineEl.style.fontSize = `${((containerWidth - 2) / naturalWidth) * 100}px`
-      })
-    }
-
-    fitLines()
-    const ro = new ResizeObserver(fitLines)
-    if (viewportRef.current) ro.observe(viewportRef.current)
-    return () => ro.disconnect()
-  }, [settings.heroWord])
-
-  // GSAP letter animation
   useEffect(() => {
     if (preloaderVisible) return
     const el = wordRef.current
@@ -66,22 +36,20 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
     )
   }, [preloaderVisible, reduced])
 
+  const lines = settings.heroWord.split('\n').filter(Boolean)
+  const fontSize = settings.heroFontSize ?? 'clamp(96px, 18vw, 280px)'
+
   return (
-    <section className="min-h-screen flex flex-col justify-end pb-20 pt-32">
-      {/* Full-viewport-width hero word */}
-      <div ref={viewportRef} className="w-full overflow-hidden mb-12">
+    <section className="min-h-screen flex flex-col justify-end pb-20 pt-32 px-6 md:px-10">
+      <div className="max-w-container mx-auto w-full">
+        {/* Hero word */}
         <h1
           ref={wordRef}
-          className="tracking-[-0.04em] leading-[0.9] text-ink"
-          style={{ fontFamily: "'Valizas', sans-serif", fontWeight: 700 }}
+          className="tracking-[-0.04em] leading-[0.9] text-ink mb-12"
+          style={{ fontSize, fontFamily: "'Valizas', sans-serif", fontWeight: 700 }}
         >
           {lines.map((line, li) => (
-            <div
-              key={li}
-              ref={(el) => { lineRefs.current[li] = el }}
-              className="overflow-hidden whitespace-nowrap"
-              style={{ fontSize: '10vw' }}
-            >
+            <div key={li} className="overflow-hidden">
               {line.split('').map((letter, i) => (
                 <span
                   key={i}
@@ -98,31 +66,27 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
             </div>
           ))}
         </h1>
-      </div>
 
-      {/* Stats row — stays in padded container */}
-      <div className="px-6 md:px-10">
-        <div className="max-w-container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6 items-start">
-            {settings.stats.map((stat) => (
-              <StatCounter
-                key={stat.label}
-                value={stat.value}
-                suffix={stat.suffix}
-                label={stat.label}
-              />
-            ))}
-            <div className="md:col-span-1">
-              <p
-                className="text-base leading-relaxed text-muted"
-                dangerouslySetInnerHTML={{
-                  __html: settings.heroDescription.replace(
-                    /\*\*(.*?)\*\*/g,
-                    '<strong class="text-ink font-semibold">$1</strong>'
-                  ),
-                }}
-              />
-            </div>
+        {/* Stats row */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6 items-start">
+          {settings.stats.map((stat) => (
+            <StatCounter
+              key={stat.label}
+              value={stat.value}
+              suffix={stat.suffix}
+              label={stat.label}
+            />
+          ))}
+          <div className="md:col-span-1">
+            <p
+              className="text-base leading-relaxed text-muted"
+              dangerouslySetInnerHTML={{
+                __html: settings.heroDescription.replace(
+                  /\*\*(.*?)\*\*/g,
+                  '<strong class="text-ink font-semibold">$1</strong>'
+                ),
+              }}
+            />
           </div>
         </div>
       </div>
