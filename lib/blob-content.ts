@@ -31,6 +31,6 @@ export async function writeBlobContent(section: string, data: unknown): Promise<
   await put(
     `content/${section}.json`,
     JSON.stringify(data, null, 2),
-    { access: 'private', contentType: 'application/json', addRandomSuffix: false }
+    { access: 'private', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true }
   )
 }
