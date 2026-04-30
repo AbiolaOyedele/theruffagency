@@ -11,6 +11,7 @@ const HEADING = "Yeah, waiting\nfor the Devs\ntoo..."
 export default function UnderConstruction() {
   const wordRef = useRef<HTMLHeadingElement>(null)
   const svgRef = useRef<HTMLDivElement>(null)
+  const subRef = useRef<HTMLParagraphElement>(null)
   const reduced = useReducedMotion()
 
   // Letter animation
@@ -33,6 +34,21 @@ export default function UnderConstruction() {
         ease: `cubic-bezier(${EASE_OUT_EXPO.join(',')})`,
         delay: 0.2,
       }
+    )
+  }, [reduced])
+
+  // Subheading fade in — after heading finishes (31 letters × 0.04s stagger + 0.2s delay + 1.2s duration ≈ 2.6s total)
+  useEffect(() => {
+    const sub = subRef.current
+    if (!sub) return
+    if (reduced) {
+      gsap.set(sub, { opacity: 1 })
+      return
+    }
+    gsap.fromTo(
+      sub,
+      { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
+      { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 1.2, ease: `cubic-bezier(${EASE_OUT_EXPO.join(',')})`, delay: 2.2 }
     )
   }, [reduced])
 
@@ -89,7 +105,11 @@ export default function UnderConstruction() {
             ))}
           </h1>
 
-          <p className="text-muted text-lg md:text-xl leading-snug md:leading-relaxed max-w-sm">
+          <p
+            ref={subRef}
+            className="text-muted text-lg md:text-xl leading-snug md:leading-relaxed max-w-sm"
+            style={{ opacity: reduced ? 1 : 0 }}
+          >
             You should probably check back later.
           </p>
         </div>
