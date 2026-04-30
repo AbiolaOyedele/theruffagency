@@ -3,11 +3,11 @@ import { cookies } from 'next/headers'
 import fs from 'fs'
 import path from 'path'
 import { verifyToken, SESSION_COOKIE } from '@/lib/auth'
-import { readBlobContent, writeBlobContent } from '@/lib/blob-content'
+import { readRedisContent, writeRedisContent } from '@/lib/redis-content'
 
 const ALLOWED = ['settings', 'services', 'workflow', 'testimonials', 'faqs', 'pricing', 'blog', 'projects']
 const CONTENT_DIR = path.join(process.cwd(), 'content')
-const IS_BLOB = !!process.env.BLOB_READ_WRITE_TOKEN
+const IS_REDIS = !!process.env.UPSTASH_REDIS_REST_URL
 
 async function isAuthed(): Promise<boolean> {
   const token = cookies().get(SESSION_COOKIE)?.value
@@ -19,10 +19,9 @@ export async function GET(_req: Request, { params }: { params: { section: string
   const { section } = params
   if (!ALLOWED.includes(section)) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
-  if (IS_BLOB) {
-    // Try Blob first; fall back to bundled read-only JSON if not yet seeded
-    const fromBlob = await readBlobContent(section, null)
-    if (fromBlob !== null) return NextResponse.json(fromBlob)
+  if (IS_REDIS) {
+    const fromRedis = await readRedisContent(section, null)
+    if (fromRedis !== null) return NextResponse.json(fromRedis)
   }
 
   try {
@@ -41,8 +40,8 @@ export async function PUT(req: Request, { params }: { params: { section: string 
   try {
     const body = await req.json()
 
-    if (IS_BLOB) {
-      await writeBlobContent(section, body)
+    if (IS_REDIS) {
+      await writeRedisContent(section, body)
       return NextResponse.json({ ok: true })
     }
 

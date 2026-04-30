@@ -1,9 +1,9 @@
 import fs from 'fs'
 import path from 'path'
-import { readBlobContent } from './blob-content'
+import { readRedisContent } from './redis-content'
 
 const CONTENT_DIR = path.join(process.cwd(), 'content')
-const IS_BLOB = !!process.env.BLOB_READ_WRITE_TOKEN
+const IS_REDIS = !!process.env.UPSTASH_REDIS_REST_URL
 
 function readJSON<T>(file: string, fallback: T): T {
   try {
@@ -15,11 +15,10 @@ function readJSON<T>(file: string, fallback: T): T {
 }
 
 async function read<T>(section: string, fallback: T): Promise<T> {
-  if (IS_BLOB) {
-    // Try Blob first; if not seeded yet, fall back to the bundled read-only JSON
-    const fromBlob = await readBlobContent<T | null>(section, null)
-    if (fromBlob !== null) return fromBlob
-    // Blob empty — read from the deployment bundle (read-only filesystem fallback)
+  if (IS_REDIS) {
+    // Try Redis first; fall back to bundled read-only JSON if not yet saved
+    const fromRedis = await readRedisContent<T | null>(section, null)
+    if (fromRedis !== null) return fromRedis
     return readJSON(`${section}.json`, fallback)
   }
   return readJSON(`${section}.json`, fallback)
