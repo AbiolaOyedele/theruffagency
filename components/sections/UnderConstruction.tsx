@@ -10,8 +10,10 @@ const HEADING = "Yeah, waiting\nfor the Devs\ntoo..."
 
 export default function UnderConstruction() {
   const wordRef = useRef<HTMLHeadingElement>(null)
+  const svgRef = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
 
+  // Letter animation
   useEffect(() => {
     const el = wordRef.current
     if (!el) return
@@ -34,6 +36,27 @@ export default function UnderConstruction() {
     )
   }, [reduced])
 
+  // SVG slide-in from right
+  useEffect(() => {
+    const svg = svgRef.current
+    if (!svg) return
+    if (reduced) {
+      gsap.set(svg, { x: 0, opacity: 1 })
+      return
+    }
+    gsap.fromTo(
+      svg,
+      { x: 120, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1.4,
+        ease: `cubic-bezier(${EASE_OUT_EXPO.join(',')})`,
+        delay: 0.4,
+      }
+    )
+  }, [reduced])
+
   const lines = HEADING.split('\n')
 
   return (
@@ -49,10 +72,10 @@ export default function UnderConstruction() {
           <h1
             ref={wordRef}
             className="text-ink leading-[0.92] tracking-[-0.03em] mb-8"
-            style={{ fontFamily: "'Valizas', sans-serif", fontWeight: 700, fontSize: 'clamp(44px, 6.5vw, 96px)' }}
+            style={{ fontFamily: "'Valizas', sans-serif", fontWeight: 700, fontSize: 'clamp(30px, 6.5vw, 96px)' }}
           >
             {lines.map((line, li) => (
-              <div key={li} className="overflow-hidden">
+              <div key={li} className="overflow-hidden whitespace-nowrap pt-[0.25em] -mt-[0.25em] pb-[0.2em] -mb-[0.2em]">
                 {line.split('').map((letter, i) => (
                   <span
                     key={i}
@@ -66,14 +89,14 @@ export default function UnderConstruction() {
             ))}
           </h1>
 
-          <p className="text-muted text-lg md:text-xl leading-relaxed max-w-sm">
+          <p className="text-muted text-lg md:text-xl leading-snug md:leading-relaxed max-w-sm">
             You should probably check back later.
           </p>
         </div>
 
         {/* Right — illustration */}
-        <div className="flex-1 flex items-center justify-center md:justify-end">
-          <div className="w-full md:max-w-none md:w-[120%]">
+        <div className="flex-1 flex items-center justify-center md:justify-end overflow-hidden">
+          <div ref={svgRef} className="w-full md:max-w-none md:w-[120%]" style={{ opacity: 0 }}>
             <Image
               src="/reading.svg"
               alt="Person reading"
